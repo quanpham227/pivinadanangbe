@@ -1,6 +1,7 @@
 package com.pivinadanangbe.entity;
 
 
+import com.pivinadanangbe.dto.CategoryStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,9 @@ public class CategoryEntity extends AbstractEntity {
     @Column (name = "slug", nullable = false, length = 100)
     private String slug;
 
+    @Enumerated
+    @Column(name = "status")
+    private CategoryStatus status;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "created_date")
