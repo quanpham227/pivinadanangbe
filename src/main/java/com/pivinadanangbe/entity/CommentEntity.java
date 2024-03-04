@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -16,14 +17,13 @@ public class CommentEntity extends AbstractEntity{
     @Column(name = "content")
     private String content;
 
-
     @Temporal(TemporalType.DATE)
     @Column(name = "created_date")
-    private Date createdDate;
+    private Timestamp createdDate;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "modified_date")
-    private Date modifiedDate;
+    private Timestamp modifiedDate;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,12 +37,12 @@ public class CommentEntity extends AbstractEntity{
 
     @PreUpdate
     public void preUpdate() {
-        modifiedDate = new Date();
+        this.modifiedDate = new Timestamp(System.currentTimeMillis());
     }
 
     @PrePersist
     public void prePersist() {
-        createdDate = new Date();
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
 }
