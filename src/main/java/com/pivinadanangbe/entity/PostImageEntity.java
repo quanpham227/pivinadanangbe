@@ -29,16 +29,4 @@ public class PostImageEntity extends AbstractEntity{
     private String url;
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || !(o instanceof PostImageEntity)) return false;
-        PostImageEntity that = (PostImageEntity) o;
-        return getId() != null && Objects.equals(getId(), that.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

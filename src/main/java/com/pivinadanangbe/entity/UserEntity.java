@@ -34,7 +34,7 @@ public class UserEntity extends AbstractEntity implements Serializable {
     @Column(nullable = false, name = "provider_id", unique = true)
     private String providerId;
 
-    @Column
+    @Column (name = "avatar")
     private String avatar;
 
     @Temporal(TemporalType.DATE)
