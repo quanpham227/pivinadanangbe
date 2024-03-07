@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.sql.SQLException;
@@ -25,7 +24,16 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     return errorResponse;
   }
 
-
+  @ExceptionHandler(DuplicateRecordException.class)
+  @ResponseStatus(HttpStatus.CONFLICT)
+  public ErrorResponse handlerDuplicateRecordException(DuplicateRecordException ex, WebRequest request) {
+    ErrorResponse errorResponse = new ErrorResponse(
+            HttpStatus.CONFLICT,
+            new Date(),
+            ex.getMessage(),
+            request.getDescription(false));
+    return errorResponse;
+  }
   @ExceptionHandler(NullPointerException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public ErrorResponse handlerNullPointerException(NullPointerException ex, WebRequest request) {
@@ -48,17 +56,6 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     return errorResponse;
   }
 
-  @ExceptionHandler(MaxUploadSizeExceededException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public ErrorResponse handlerMaxUploadSizeExceeded(MaxUploadSizeExceededException ex,
-      WebRequest request) {
-    ErrorResponse errorResponse = new ErrorResponse(
-        HttpStatus.BAD_REQUEST,
-        new Date(),
-        ex.getMessage(),
-        request.getDescription(false));
-    return errorResponse;
-  }
 
   @ExceptionHandler(DataIntegrityViolationException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

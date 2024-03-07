@@ -1,6 +1,7 @@
 package com.pivinadanangbe.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ManufacturerDTO extends AbstractDTO<ManufacturerDTO> implements Serializable {
+    @NotEmpty
     private String name;
     private String logo;
 
